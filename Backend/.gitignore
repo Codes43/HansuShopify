@@ -1,0 +1,18 @@
+# Python dependencies
+Pipfile.lock
+
+# Django specific files
+db.sqlite3
+*/__pycache__/
+*.pyc
+
+# Environment variables
+.env
+
+# Django media/static files (if not managed by Git)
+/media/
+/static/
+
+# IDE files (e.g., VS Code)
+.vscode/
+.idea/
