@@ -3,17 +3,25 @@ from rest_framework.response import Response
 from rest_framework.permissions import AllowAny
 from rest_framework.views import APIView
 from rest_framework.response import Response
-##import the simple jwt to handle tokens
 from rest_framework_simplejwt.tokens import RefreshToken
-# Create your views here.
 from django.contrib.auth import authenticate
-from .serializers import *
+from .serializers import ProductSerializer,UserSerializer,SignUpSerializer
+from .models import Product
 
 
+##import of generic views
+from rest_framework import generics
 
-## Product manage
+##  This view is simplily for listing all products from the database or create a new product
+
+class CreateProductView(generics.CreateAPIView):
+    queryset=Product.objects.all()
+    serializer_class=ProductSerializer
 
 
+class ListProductsView(generics.ListAPIView):
+    queryset=Product.objects.all()
+    serializer_class=ProductSerializer
 
 
 
