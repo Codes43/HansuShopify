@@ -7,8 +7,19 @@ from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
 # Create your views here.
 from django.contrib.auth import authenticate
-from .serializers import UserSerializer 
+from .serializers import *
 
+
+
+## Product manage
+
+
+
+
+
+
+
+### handle User Management
 def get_auth_for_user(user):
     # tokens=RefreshToken(user)
     return{
@@ -42,3 +53,13 @@ class SignInView(APIView):
 
    
 
+class SignUpView(APIView):
+    permission_classes=[AllowAny]
+
+    def post(self,request):
+        new_user= SignUpSerializer(data=request.data)
+        new_user.is_valid(raise_exception=True)
+        user=new_user.save()
+        #we shall grab the token and return the newly created user data
+        user_data=get_auth_for_user(user)
+        return Response(user_data)

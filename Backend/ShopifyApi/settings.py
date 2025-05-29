@@ -53,7 +53,7 @@ MIDDLEWARE = [
 ]
 
 ## Auth model
-AUTH_USER_MODEL='store.CustomUser'
+AUTH_USER_MODEL = 'store.CustomUser'
 
 REST_FRAMEWORK = {
 
