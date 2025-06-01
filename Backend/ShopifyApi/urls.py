@@ -14,10 +14,15 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from store.home import *
 from django.contrib import admin
 from django.urls import path,include
 
 urlpatterns = [
-    path("",include('store.urls')),
+    path("api/v1/",include([
+        path('',include(('store.urls','store'),namespace="Store")),
+        path("swagger/schema",schema_view.with_ui("swagger",cache_timeout=0),name="swagger-schema")
+
+    ])),
     path('admin/', admin.site.urls),
 ]

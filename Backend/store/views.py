@@ -24,6 +24,19 @@ class ListProductsView(generics.ListAPIView):
     serializer_class=ProductSerializer
 
 
+class ProductDetailView(generics.RetrieveAPIView):
+    queryset=Product.objects.all()
+    serializer_class=ProductSerializer
+    lookup_field="pk"
+class UpdateProductView(generics.UpdateAPIView):
+    queryset=Product.objects.all()
+    serializer_class=ProductSerializer
+    lookup_field="pk"
+class DeleteProductView(generics.DestroyAPIView):
+    queryset=Product.objects.all()
+    serializer_class=ProductSerializer
+    lookup_field="pk"
+
 
 
 
