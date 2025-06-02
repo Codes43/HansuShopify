@@ -43,6 +43,7 @@ class DeleteProductView(generics.DestroyAPIView):
 ### handle User Management
 def get_auth_for_user(user):
     # tokens=RefreshToken(user)
+    # print(tokens)
     return{
         'user':UserSerializer(user).data,
         #  'tokens': {

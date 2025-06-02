@@ -19,8 +19,9 @@ from django.contrib import admin
 from django.urls import path,include
 
 urlpatterns = [
+     path('',include(('store.urls','store'),namespace="Store")),
     path("api/v1/",include([
-        path('',include(('store.urls','store'),namespace="Store")),
+
         path("swagger/schema",schema_view.with_ui("swagger",cache_timeout=0),name="swagger-schema")
 
     ])),
