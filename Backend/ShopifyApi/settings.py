@@ -46,6 +46,13 @@ INSTALLED_APPS = [
     'corsheaders'
 ]
 
+
+
+# AUTHENTICATION_BACKENDS = [
+#     'django.contrib.auth.backends.ModelBackend',
+#     'store.backends.EmailBackend',
+# ]
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'corsheaders.middleware.CorsMiddleware',

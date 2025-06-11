@@ -9,11 +9,21 @@ class ProductSerializer(serializers.ModelSerializer):
         model=Product
         fields='__all__'
 
+    def get_imageUrl(self, obj):
+        # This correctly forms the absolute URL for the image
+        if obj.image:
+            request = self.context.get('request')
+            if request is not None:
+                return request.build_absolute_uri(obj.image.url)
+            return obj.image.url # Fallback if request context isn't available
+        return 
+
 class UserSerializer(serializers.ModelSerializer):
     
     class Meta:
         model=CustomUSer
         fields=[
+            'id',
             'username',
             'email',
             'first_name',

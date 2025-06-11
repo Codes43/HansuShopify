@@ -45,15 +45,21 @@ class DeleteProductView(generics.DestroyAPIView):
 
 ### handle User Management
 def get_auth_for_user(user):
-    # tokens=RefreshToken(user)
-    # print(tokens)
-    return{
-        'user':UserSerializer(user).data,
-        #  'tokens': {
-        #      'access':str(tokens.access_token),
-        #      'refresh':str(tokens)
-        # }
-    }
+    if not user or not hasattr(user, 'id'):
+        raise ValueError("Invalid user object")
+    
+    try:
+        refresh = RefreshToken.for_user(user)
+        return {
+            'user': UserSerializer(user).data,
+            'tokens': {
+                'access': str(refresh.access_token),
+                'refresh': str(refresh)
+            }
+        }
+    except Exception as e:
+        print(f"Token generation failed: {e}")
+        raise
 
 
 
