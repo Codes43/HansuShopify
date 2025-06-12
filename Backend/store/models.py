@@ -4,8 +4,7 @@ from django.utils.translation import gettext_lazy as _
 from .user_model import CustomUserManager
 
 
-# Adding a product model 
-
+# Adding a product model
 class Product(models.Model):
     name=models.CharField(max_length=255)
     description=models.TextField()

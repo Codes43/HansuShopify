@@ -39,7 +39,24 @@ class DeleteProductView(generics.DestroyAPIView):
     queryset=Product.objects.all()
     serializer_class=ProductSerializer
     lookup_field="pk"
+from rest_framework import generics
+from .models import Product
+from .serializers import ProductSerializer
+from django.db.models import Q
 
+class ProductSearchView(generics.ListAPIView):
+    serializer_class = ProductSerializer
+
+    def get_queryset(self):
+        queryset = Product.objects.all()
+        search_query = self.request.query_params.get('search', None)
+        
+        if search_query:
+            queryset = queryset.filter(
+                Q(name__icontains=search_query) |
+                Q(description__icontains=search_query) 
+            )
+        return queryset
 
 
 
@@ -94,3 +111,5 @@ class SignUpView(APIView):
         #we shall grab the token and return the newly created user data
         user_data=get_auth_for_user(user)
         return Response(user_data)
+
+

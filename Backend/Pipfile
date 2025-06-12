@@ -10,6 +10,7 @@ pillow = "*"
 djangorestframework = "*"
 djangorestframework-simplejwt = "*"
 drf-yasg = "*"
+requests = "*"
 
 [dev-packages]
 
