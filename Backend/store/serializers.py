@@ -32,24 +32,22 @@ class UserSerializer(serializers.ModelSerializer):
             
 class SignUpSerializer(serializers.ModelSerializer):
     class Meta:
-        model=CustomUSer
-        fields=[
-            'email',
-            'password'
-        ]
-        
-        extra_kwargs={
-            'password':{
-              'write_only':True
-            }
+        model = CustomUSer
+        fields = ['email', 'password']
+        extra_kwargs = {
+            'password': {'write_only': True}
         }
-        def create(self,validate_data):
-            email=validate_data['email'].lower()
-            user =CustomUSer.objects.create(
-                email=email
-            )
-            password=validate_data['password']
-            user.set_password(password)
-            user.save()
-            return user
 
+    def create(self, validated_data):
+        email = validated_data['email'].lower().strip()  # Normalize email
+        password = validated_data['password']
+        
+        user = CustomUSer.objects.create_user(  # Use create_user instead of create
+            email=email,
+            password=password  # This will handle hashing automatically
+        )
+        return user
+
+#  def create(self, validated_data):
+#         validated_data['password'] = make_password(validated_data['password'])
+#         return super().create(validated_data)

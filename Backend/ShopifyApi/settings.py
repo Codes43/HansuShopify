@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-q^%g!_#(x!e&#ipw9=t(z#(_n@!l%%*7yr+2-d&c0bt=ae05sk'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ['*']
 CORS_ALLOW_ALL_ORIGINS = True
@@ -76,7 +76,7 @@ REST_FRAMEWORK = {
 }
 
 ROOT_URLCONF = 'ShopifyApi.urls'
-
+ 
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
