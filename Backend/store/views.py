@@ -59,6 +59,14 @@ class ProductSearchView(generics.ListAPIView):
         return queryset
 
 
+class CategoryProductsView(generics.ListAPIView):
+    serializer_class = ProductSerializer
+    
+    def get_queryset(self):
+        # Get category_id from URL
+        category_id = self.kwargs['category_id']
+        # Return all products in this category
+        return Product.objects.filter(category_id=category_id)
 
 ### handle User Management
 def get_auth_for_user(user):
