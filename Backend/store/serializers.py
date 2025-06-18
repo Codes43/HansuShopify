@@ -1,10 +1,16 @@
 from rest_framework import serializers
-from .models import CustomUSer, Product
+from .models import CustomUSer, Product,category
 
+class CategorySerializer(serializers.ModelSerializer):
+    
+    class Meta:
+        model = category
+        fields = ['id', 'name']
 
 
 
 class ProductSerializer(serializers.ModelSerializer):
+    # category = CategorySerializer(read_only=True)
     class Meta:
         model=Product
         fields='__all__'

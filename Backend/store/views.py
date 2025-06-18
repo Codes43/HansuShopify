@@ -5,9 +5,12 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth import authenticate
-from .serializers import ProductSerializer,UserSerializer,SignUpSerializer
+from .serializers import CategorySerializer, ProductSerializer,UserSerializer,SignUpSerializer
+from .models import Product,category
+from rest_framework import generics
 from .models import Product
-
+from .serializers import ProductSerializer
+from django.db.models import Q
 
 ##import of generic views
 from rest_framework import generics
@@ -25,6 +28,22 @@ class ListProductsView(generics.ListAPIView):
 
     def get_serializer_context(self):
         return {'request': self.request}
+    
+
+    def get_queryset(self):
+        queryset = super().get_queryset()
+        category_name = self.request.query_params.get('category')
+        if category_name:
+            queryset = queryset.filter(category__name__iexact=category_name)
+        return queryset
+
+class CategoryListCreateView(generics.ListCreateAPIView):
+    queryset = category.objects.all()
+    serializer_class = CategorySerializer
+
+class CategoryDetailView(generics.RetrieveUpdateDestroyAPIView):
+    queryset = category.objects.all()
+    serializer_class = CategorySerializer
 
 
 class ProductDetailView(generics.RetrieveAPIView):
@@ -39,10 +58,7 @@ class DeleteProductView(generics.DestroyAPIView):
     queryset=Product.objects.all()
     serializer_class=ProductSerializer
     lookup_field="pk"
-from rest_framework import generics
-from .models import Product
-from .serializers import ProductSerializer
-from django.db.models import Q
+
 
 class ProductSearchView(generics.ListAPIView):
     serializer_class = ProductSerializer
@@ -59,15 +75,7 @@ class ProductSearchView(generics.ListAPIView):
         return queryset
 
 
-class CategoryProductsView(generics.ListAPIView):
-    serializer_class = ProductSerializer
-    
-    def get_queryset(self):
-        # Get category_id from URL
-        category_id = self.kwargs['category_id']
-        # Return all products in this category
-        return Product.objects.filter(category_id=category_id)
-
+\
 ### handle User Management
 def get_auth_for_user(user):
     if not user or not hasattr(user, 'id'):
