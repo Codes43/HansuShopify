@@ -1,20 +1,25 @@
 from rest_framework import serializers
-from .models import CustomUSer, Product,category
+from .models import CustomUSer, Product,Category
 
 class CategorySerializer(serializers.ModelSerializer):
     
     class Meta:
-        model = category
+        model = Category
         fields = ['id', 'name']
 
 
 
 class ProductSerializer(serializers.ModelSerializer):
-    category = CategorySerializer(read_only=False)
+    category = CategorySerializer(read_only=True)
+
+    category_id = serializers.PrimaryKeyRelatedField(
+        queryset=Category.objects.all(),
+        source='category',
+        write_only=True               
+    )
     class Meta:
         model=Product
-        fields='__all__'
-
+        fields = ['id', 'name', 'description', 'price', 'image', 'category','category_id']
     def get_imageUrl(self, obj):
         if obj.image:
             request = self.context.get('request')

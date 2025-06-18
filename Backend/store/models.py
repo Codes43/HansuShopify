@@ -4,7 +4,7 @@ from django.utils.translation import gettext_lazy as _
 from .user_model import CustomUserManager
 
 
-class category(models.Model):
+class Category(models.Model):
     name=models.CharField(max_length=255)
 
     def __str__(self):
@@ -15,7 +15,7 @@ class Product(models.Model):
     description=models.TextField()
     price=models.DecimalField(max_digits=10,decimal_places=2)
     image=models.ImageField(upload_to="products/")
-    category=models.ForeignKey(category,on_delete=models.PROTECT,null=True,related_name='Category')
+    category=models.ForeignKey(Category,on_delete=models.PROTECT,null=True,related_name='Category')
 
     def __str__(self):
         return self.name

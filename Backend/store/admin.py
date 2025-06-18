@@ -5,5 +5,5 @@ from .models import *
 
 
 admin.site.register(CustomUSer)
-admin.site.register(category)
+admin.site.register(Category)
 admin.site.register(Product)

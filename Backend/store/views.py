@@ -6,7 +6,7 @@ from rest_framework.response import Response
 from rest_framework_simplejwt.tokens import RefreshToken
 from django.contrib.auth import authenticate
 from .serializers import CategorySerializer, ProductSerializer,UserSerializer,SignUpSerializer
-from .models import Product,category
+from .models import Category, Product
 from rest_framework import generics
 from .models import Product
 from .serializers import ProductSerializer
@@ -38,11 +38,11 @@ class ListProductsView(generics.ListAPIView):
         return queryset
 
 class CategoryListCreateView(generics.ListCreateAPIView):
-    queryset = category.objects.all()
+    queryset = Category.objects.all()
     serializer_class = CategorySerializer
 
 class CategoryDetailView(generics.RetrieveUpdateDestroyAPIView):
-    queryset = category.objects.all()
+    queryset = Category.objects.all()
     serializer_class = CategorySerializer
 
 
