@@ -10,13 +10,12 @@ class CategorySerializer(serializers.ModelSerializer):
 
 
 class ProductSerializer(serializers.ModelSerializer):
-    # category = CategorySerializer(read_only=True)
+    category = CategorySerializer(read_only=False)
     class Meta:
         model=Product
         fields='__all__'
 
     def get_imageUrl(self, obj):
-        # This correctly forms the absolute URL for the image
         if obj.image:
             request = self.context.get('request')
             if request is not None:
