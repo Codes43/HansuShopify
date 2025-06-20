@@ -23,7 +23,7 @@ class CreateProductView(generics.CreateAPIView):
 
 
 class ListProductsView(generics.ListAPIView):
-    queryset=Product.objects.all()
+    queryset=Product.objects.all().order_by('?') 
     serializer_class=ProductSerializer
 
     def get_serializer_context(self):
